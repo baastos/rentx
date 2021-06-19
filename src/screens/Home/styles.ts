@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
+  background: ${({theme})=> theme.colors.background};
 `;
 
 export const Header = styled.View`
@@ -23,3 +24,10 @@ export const TotalCarsText = styled.Text`
   font-family: ${({theme})=> theme.fonts.primary_regular};
   color: ${({theme})=> theme.colors.text};
 `;
+
+export const CarList = styled.FlatList.attrs({
+  
+  contentContainerStyle:{ padding: 24}  
+})``;
+
+
