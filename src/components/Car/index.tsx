@@ -45,7 +45,7 @@ export function Car({ data }: Car) {
         </About>
 
       </Details>
-      <CarImage source={{ uri: data.image_url }} />
+      <CarImage resizeMode="contain" source={{ uri: data.image_url }} />
     </Container>
   )
 }
