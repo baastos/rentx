@@ -24,8 +24,10 @@ import {
   Period,
   Price,
   Acessories,
-  About
+  About,
+  Footer
 } from './styles'
+import { Button } from '../../components/Button'
 
 
 export function CarDetails() {
@@ -69,6 +71,9 @@ export function CarDetails() {
           É um belíssimo carro para quem gosta de acelerar.
         </About>
       </Content>
+      <Footer>
+        <Button text="Escolher período do aluguel" />
+      </Footer>
     </Container>
   )
 }
