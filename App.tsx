@@ -11,6 +11,7 @@ import {
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 import theme from './src/styles/theme';
 import { CarDetails } from './src/screens/CarDetails';
+import { Appointments } from './src/screens/Appointments';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CarDetails />
+      <Appointments />
     </ThemeProvider>
   );
 }
