@@ -5,7 +5,15 @@ import { Container, Header, Title, PeriodRental, DatePeriod, Text, DateValue, Co
 import { StatusBar } from 'react-native'
 import { Button } from '../../components/Button'
 import { Calendar } from '../../components/Calendar'
+import { useNavigation } from '@react-navigation/native'
+
 export function Appointments() {
+
+  const navigation = useNavigation()
+
+  function handleNavigate(route: string){
+    navigation.navigate(route)
+  }
   return (
     <Container>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
@@ -35,7 +43,7 @@ export function Appointments() {
       </Content>
 
       <Footer>
-        <Button text="Confirmar" />
+        <Button onPress={()=> handleNavigate('AppointmentsDetails')} text="Confirmar" />
       </Footer>
 
     </Container>

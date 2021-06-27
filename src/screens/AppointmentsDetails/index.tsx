@@ -37,9 +37,15 @@ import {
   RentalPeriodPrice
 } from './styles'
 import { Button } from '../../components/Button'
+import { useNavigation } from '@react-navigation/native'
 
 
 export function AppointmentsDetails() {
+  const navigation = useNavigation()
+
+  function handleNavigate(route: string){
+    navigation.navigate(route)
+  }
   const theme = useTheme();
 
   return (
@@ -98,7 +104,7 @@ export function AppointmentsDetails() {
         </TotalRentPeriod>
       </Content>
       <Footer>
-        <Button text="Escolher período do aluguel" />
+        <Button color={theme.colors.success} onPress={()=> handleNavigate('AppointmentsCreated')} text="Alugar agora" />
       </Footer>
     </Container>
   )

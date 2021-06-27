@@ -10,7 +10,7 @@ interface Props extends RectButtonProps {
 
 export function Button({ text, color, ...rest }: Props) {
   return (
-    <Container color={color}>
+    <Container color={color} {...rest}>
       <Text>{text}</Text>
     </Container>
   )

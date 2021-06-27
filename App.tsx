@@ -10,8 +10,7 @@ import {
 } from '@expo-google-fonts/archivo';
 import { Inter_400Regular, Inter_500Medium } from '@expo-google-fonts/inter';
 import theme from './src/styles/theme';
-import { CarDetails } from './src/screens/CarDetails';
-import { AppointmentsDetails } from './src/screens/AppointmentsDetails';
+import { Routes } from './src/routes/index.routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,12 +23,12 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <AppointmentsDetails />
+      <Routes/>
     </ThemeProvider>
   );
 }

@@ -3,8 +3,16 @@ import { StatusBar } from 'react-native'
 import { CarList, Container, Header, HeaderContent, TotalCarsText } from './styles'
 import Logo from '../../assets/logo.svg'
 import { Car } from '../../components/Car'
+import { useNavigation } from '@react-navigation/native'
+
+
 
 export function Home() {
+  const navigation = useNavigation()
+
+  function handleNavigate(route: string){
+    navigation.navigate(route)
+  }
   const data = [{
     brand: 'Audi',
     name: 'RS 5 Coupé',
@@ -21,7 +29,7 @@ export function Home() {
           <TotalCarsText>Total de 12 carros</TotalCarsText>
         </HeaderContent>
       </Header>
-      <CarList data={[1, 2, 3]} keyExtractor={item => String(item)} renderItem={({ item }) => <Car data={data[0]} />} />
+      <CarList data={[1, 2, 3]} keyExtractor={item => String(item)} renderItem={({ item }) => <Car onPress={()=> handleNavigate('CarDetails')}  data={data[0]} />} />
 
     </Container>
 
