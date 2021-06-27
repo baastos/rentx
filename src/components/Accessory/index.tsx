@@ -7,7 +7,7 @@ interface Props {
   name: string;
 }
 
-export function Acessory({ icon: Icon, name }: Props) {
+export function Accessory({ icon: Icon, name }: Props) {
   return (
     <Container>
       <Icon width={32} height={32} />
