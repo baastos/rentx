@@ -66,7 +66,7 @@ export const Price = styled.Text`
   color: ${({theme})=> theme.colors.main};
   font-size: ${RFValue(25)}px;
 `;
-export const Acessories = styled.View`
+export const Accessories = styled.View`
   width: 100%;
   align-items: center;
   flex-direction: row;
