@@ -13,6 +13,7 @@ import {
 } from './styles'
 import Icon from '../../assets/gasoline.svg'
 import { RectButtonProperties } from 'react-native-gesture-handler'
+import CarDTO from '../../dtos/carDTO'
 
 interface CarProps {
 
@@ -25,7 +26,7 @@ interface CarProps {
 }
 
 interface Car extends RectButtonProperties {
-  data: CarProps
+  data: CarDTO
 }
 
 export function Car({ data, ...rest }: Car) {
@@ -36,8 +37,8 @@ export function Car({ data, ...rest }: Car) {
         <Name>{data.name}</Name>
         <About>
           <Rent>
-            <Period>{data.period}</Period>
-            <Price>{data.price}</Price>
+            <Period>{data.rent.period}</Period>
+            <Price>R$ {data.rent.price}</Price>
           </Rent>
           <Type>
             <Icon />
@@ -46,7 +47,7 @@ export function Car({ data, ...rest }: Car) {
         </About>
 
       </Details>
-      <CarImage resizeMode="contain" source={{ uri: data.image_url }} />
+      <CarImage resizeMode="contain" source={{ uri: data.thumbnail }} />
     </Container>
   )
 }
