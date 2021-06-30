@@ -3,14 +3,10 @@ import { useTheme } from 'styled-components'
 import { Accessory } from '../../components/Accessory'
 import { BackButton } from '../../components/BackButton'
 import { ImageSlider } from '../../components/ImageSlider'
-
-import accelerationSvg from '../../assets/acceleration.svg'
-import exchangeSvg from '../../assets/exchange.svg'
-import gasolineSvg from '../../assets/gasoline.svg'
-import forceSvg from '../../assets/force.svg'
-import peopleSvg from '../../assets/people.svg'
-import speedSvg from '../../assets/speed.svg'
-
+import { Button } from '../../components/Button'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import CarDTO from '../../dtos/carDTO'
+import { getAccessoryType } from '../../utils/getAccessoryType'
 import {
   Container,
   Header,
@@ -27,9 +23,6 @@ import {
   About,
   Footer
 } from './styles'
-import { Button } from '../../components/Button'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import CarDTO from '../../dtos/carDTO'
 
 interface RouteParams{
   car: CarDTO
@@ -75,7 +68,7 @@ export function CarDetails() {
         </Details>
         <Accessories>
           {car.accessories.map(accessory=> (
-            <Accessory key={accessory.name} name={accessory.name} icon={speedSvg} />
+            <Accessory key={accessory.type} name={accessory.name} icon={getAccessoryType(accessory.type)} />
           ))}
           
         </Accessories >

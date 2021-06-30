@@ -11,9 +11,9 @@ import {
   Price,
   CarImage,
 } from './styles'
-import Icon from '../../assets/gasoline.svg'
 import { RectButtonProperties } from 'react-native-gesture-handler'
 import CarDTO from '../../dtos/carDTO'
+import { getAccessoryType } from '../../utils/getAccessoryType'
 
 interface CarProps {
 
@@ -30,6 +30,7 @@ interface Car extends RectButtonProperties {
 }
 
 export function Car({ data, ...rest }: Car) {
+  const Icon = getAccessoryType(data.fuel_type)
   return (
     <Container {...rest}>
       <Details>
@@ -41,8 +42,7 @@ export function Car({ data, ...rest }: Car) {
             <Price>R$ {data.rent.price}</Price>
           </Rent>
           <Type>
-            <Icon />
-
+            <Icon/>
           </Type>
         </About>
 
