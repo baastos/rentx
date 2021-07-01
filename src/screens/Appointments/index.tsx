@@ -51,7 +51,6 @@ export function Appointments() {
     const interval = generateInterval(start, end)
     setMarkedDates(interval)
   }
-  console.log({markedDates})
   return (
     <Container>
       <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
