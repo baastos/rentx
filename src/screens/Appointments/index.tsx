@@ -2,24 +2,46 @@ import React from 'react'
 import { BackButton } from '../../components/BackButton'
 import ArrowSvg from '../../assets/arrow.svg'
 import { Container, Header, Title, PeriodRental, DatePeriod, Text, DateValue, Content, Footer } from './styles'
-import { StatusBar } from 'react-native'
+import { Alert, StatusBar } from 'react-native'
 import { Button } from '../../components/Button'
 import { Calendar, DayProps, MarkedDatesProps } from '../../components/Calendar'
 import {getPlatformDate} from '../../utils/getPlatformDate'
 import {format, eachDayOfInterval} from 'date-fns'
 
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useState } from 'react'
 import { useTheme } from 'styled-components'
+import CarDTO from '../../dtos/carDTO'
+
+export interface PeriodDates{
+  startFormatted: string;
+  endFormatted: string;
+}
+
+interface RouteParams{
+  car: CarDTO
+}
 
 export function Appointments() {
-  const [lastSelectedDate, setSelectedDate] = useState<DayProps>({} as DayProps)
+  const [selectDate, setSelectedDate] = useState<DayProps>({} as DayProps)
   const [markedDates, setMarkedDates] = useState<MarkedDatesProps>({} as MarkedDatesProps)
+  const [periodDates, setPeriodDates] = useState<PeriodDates>({} as PeriodDates)
+
+  const route = useRoute()
+  const {car} = route.params as RouteParams
   const navigation = useNavigation()
   const theme = useTheme()
 
   function handleNavigate(route: string){
-    navigation.navigate(route)
+    if(!periodDates.startFormatted || !periodDates.endFormatted ){
+      Alert.alert('Selecione um periodo de aluguel')
+      return;
+    }
+    navigation.navigate(route, {
+      car,
+      periodDates,
+      markedDates
+    })
   }
   function handleBack(){
     navigation.goBack()
@@ -40,7 +62,7 @@ export function Appointments() {
     return interval
   }
   function handleDateChange(day: DayProps){
-    let start = !lastSelectedDate.timestamp ? day : lastSelectedDate
+    let start = !selectDate.timestamp ? day : selectDate
     let end = day
 
     if(start.timestamp > end.timestamp){
@@ -50,6 +72,15 @@ export function Appointments() {
     setSelectedDate(end)
     const interval = generateInterval(start, end)
     setMarkedDates(interval)
+    console.log()
+    const startDate = format(new Date(Object.keys(interval)[0]), 'dd/MM/yyyy')
+    const endDate = format(new Date(Object.keys(interval)[Object.keys(interval).length - 1]), 'dd/MM/yyyy')
+
+    setPeriodDates({
+      startFormatted: startDate,
+      endFormatted: endDate
+    })
+
   }
   return (
     <Container>
@@ -64,13 +95,13 @@ export function Appointments() {
         <PeriodRental>
           <DatePeriod>
             <Text>DE</Text>
-            <DateValue selected={false}></DateValue>
+            <DateValue selected={!!periodDates.startFormatted}>{periodDates.startFormatted}</DateValue>
           </DatePeriod>
 
           <ArrowSvg />
           <DatePeriod>
             <Text>ATÉ</Text>
-            <DateValue selected={false}></DateValue>
+            <DateValue selected={!!periodDates.endFormatted}>{periodDates.endFormatted}</DateValue>
           </DatePeriod>
         </PeriodRental>
       </Header>

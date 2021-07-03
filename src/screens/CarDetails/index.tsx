@@ -35,7 +35,7 @@ export function CarDetails() {
   const {car} = route.params as RouteParams
 
   function handleNavigate(route: string){
-    navigation.navigate(route)
+    navigation.navigate(route, {car})
   }
   function handleBack(){
     navigation.goBack()
