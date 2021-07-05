@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   Container,
+  Content,
   Details,
   Brand,
   Name,
@@ -10,29 +11,29 @@ import {
   Type,
   Price,
   CarImage,
+  Footer,
+  Text,
+  DatePeriod,
+  DateValue
 } from './styles'
+import ArrowSvg from '../../assets/arrow.svg'
+
 import { RectButtonProperties } from 'react-native-gesture-handler'
 import CarDTO from '../../dtos/carDTO'
 import { getAccessoryType } from '../../utils/getAccessoryType'
 
-interface CarProps {
-
-  brand: string,
-  name: string,
-  period: string,
-  price: string,
-  image_url: string
-
-}
-
 interface Car extends RectButtonProperties {
-  data: CarDTO
+  data: CarDTO;
+  myCars?: boolean;
+  startDate?: string;
+  endDate?: string;
 }
 
-export function Car({ data, ...rest }: Car) {
+export function Car({ data, myCars, startDate, endDate, ...rest }: Car) {
   const Icon = getAccessoryType(data.fuel_type)
   return (
     <Container {...rest}>
+      <Content>
       <Details>
         <Brand>{data.brand}</Brand>
         <Name>{data.name}</Name>
@@ -48,6 +49,18 @@ export function Car({ data, ...rest }: Car) {
 
       </Details>
       <CarImage resizeMode="contain" source={{ uri: data.thumbnail }} />
+      </Content>
+      {myCars && (
+      <Footer>
+        <Text>Período</Text>
+        <DatePeriod>
+          <DateValue>{startDate}</DateValue>
+          <ArrowSvg width={14} height={14} />
+          <DateValue>{endDate}</DateValue>
+        </DatePeriod>
+    </Footer>
+    )}
+    
     </Container>
   )
 }
