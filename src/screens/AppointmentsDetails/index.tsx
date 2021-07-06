@@ -39,6 +39,7 @@ import { MarkedDatesProps } from '../../components/Calendar'
 import { PeriodDates } from '../Appointments'
 import api from '../../services/api'
 import { Alert } from 'react-native'
+import { useState } from 'react'
 
 interface RouteParams{
   car: CarDTO;
@@ -47,6 +48,7 @@ interface RouteParams{
 }
 
 export function AppointmentsDetails() {
+  const [loading, setLoading] = useState(false)
   const navigation = useNavigation()
   const theme = useTheme()
   const route = useRoute()
@@ -63,6 +65,7 @@ export function AppointmentsDetails() {
 
   async function handleConfirmRent(){
     try {
+      setLoading(true)
       const schedulesByCar = await api.get(`schedules_bycars/${car.id}`)
       const unavailable_dates = [
         ...schedulesByCar.data.unavailable_dates,
@@ -81,6 +84,7 @@ export function AppointmentsDetails() {
       })
       handleNavigate('AppointmentsCreated')
     } catch (error) {
+      setLoading(false)
       Alert.alert('Erro ao tentar alugar este carro')
     }
   }
@@ -140,7 +144,7 @@ export function AppointmentsDetails() {
         </TotalRentPeriod>
       </Content>
       <Footer>
-        <Button color={theme.colors.success} onPress={handleConfirmRent} text="Alugar agora" />
+        <Button loading={loading} enabled={!loading} color={theme.colors.success} onPress={handleConfirmRent} text="Alugar agora" />
       </Footer>
     </Container>
   )

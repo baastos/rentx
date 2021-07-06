@@ -2,7 +2,7 @@ import React from 'react'
 import { BackButton } from '../../components/BackButton'
 import ArrowSvg from '../../assets/arrow.svg'
 import { Container, Header, Title, PeriodRental, DatePeriod, Text, DateValue, Content, Footer } from './styles'
-import { Alert, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { Button } from '../../components/Button'
 import { Calendar, DayProps, MarkedDatesProps } from '../../components/Calendar'
 import {getPlatformDate} from '../../utils/getPlatformDate'
@@ -33,10 +33,6 @@ export function Appointments() {
   const theme = useTheme()
 
   function handleNavigate(route: string){
-    if(!periodDates.startFormatted || !periodDates.endFormatted ){
-      Alert.alert('Selecione um periodo de aluguel')
-      return;
-    }
     navigation.navigate(route, {
       car,
       periodDates,
@@ -111,7 +107,7 @@ export function Appointments() {
       </Content>
 
       <Footer>
-        <Button onPress={()=> handleNavigate('AppointmentsDetails')} text="Confirmar" />
+        <Button enabled={!!periodDates.startFormatted} onPress={()=> handleNavigate('AppointmentsDetails')} text="Confirmar" />
       </Footer>
 
     </Container>
