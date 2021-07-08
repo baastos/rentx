@@ -44,7 +44,7 @@ export function Home() {
       <Header>
         <HeaderContent>
           <Logo />
-          <TotalCarsText>Total de 12 carros</TotalCarsText>
+          <TotalCarsText>Total de {cars.length} carros</TotalCarsText>
         </HeaderContent>
       </Header>
       {loading ? <Loading/> :  <CarList data={cars} keyExtractor={item => item.id} renderItem={({ item }) => <Car onPress={()=> handleNavigate('CarDetails', item)}  data={item} />} />}
